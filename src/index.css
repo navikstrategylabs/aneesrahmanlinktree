@@ -62,36 +62,9 @@ body::before {
 }
 
 /* ==========================================
-   3D CARD ROTATION STYLING
+   PREMIUM CARD CONTAINER STYLING
 ========================================== */
-.card-perspective {
-  perspective: 1500px;
-  width: 100%;
-  max-width: 900px;
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-}
-
-.card-inner {
-  position: relative;
-  width: 100%;
-  transform-style: preserve-3d;
-  transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.card-perspective.flipped .card-inner {
-  transform: rotateY(180deg);
-}
-
-.card-face {
-  backface-visibility: hidden;
-  border-radius: 32px;
-  box-shadow: var(--shadow-card);
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
-}
-
-/* FRONT CARD */
-.card-front {
+.card {
   position: relative;
   background-color: var(--bg-card);
   padding: 44px;
@@ -100,52 +73,43 @@ body::before {
   align-items: center;
   gap: 48px;
   width: 100%;
-  z-index: 2;
-  transform: rotateY(0deg);
+  border-radius: 32px;
+  box-shadow: var(--shadow-card);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.03);
 }
 
-/* BACK CARD (Corporate Theme) */
-.card-back {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  transform: rotateY(180deg);
-  background-color: #121212; /* Solid matte black */
-  padding: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1;
-  color: #e5e7eb;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-/* Hover effects for card faces */
-.card-perspective:hover .card-face {
+.card:hover {
   box-shadow: 0 30px 60px -10px rgba(0, 0, 0, 0.08), 0 12px 25px -5px rgba(0, 0, 0, 0.04);
+  transform: translateY(-2px);
 }
 
-/* FRONT CARD CONTENT */
-.image-container {
+/* BRAND LOGO CONTAINER */
+.logo-container {
   flex-shrink: 0;
   width: 320px;
   height: 330px;
   border-radius: 28px;
+  background-color: #f9fafb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 28px;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.02), 0 10px 30px rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(0, 0, 0, 0.04);
   overflow: hidden;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
 }
 
-.profile-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.brand-logo {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.03));
   transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.card-perspective:hover .profile-image {
-  transform: scale(1.03);
+.card:hover .brand-logo {
+  transform: scale(1.05);
 }
 
 .content-container {
@@ -186,30 +150,6 @@ body::before {
   letter-spacing: 0.02em;
 }
 
-.flip-btn-mini {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #f3f4f6;
-  border: 1px solid #e5e7eb;
-  padding: 8px 16px;
-  border-radius: 20px; /* Capsule shape */
-  font-family: var(--font-sans);
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--text-muted);
-  cursor: pointer;
-  transition: all 0.2s ease;
-  white-space: nowrap;
-}
-
-.flip-btn-mini:hover {
-  background-color: var(--teal-hover);
-  color: #ffffff;
-  border-color: var(--teal-hover);
-  transform: translateY(-1px);
-}
-
 .divider {
   width: 100%;
   border: none;
@@ -224,11 +164,16 @@ body::before {
   margin-bottom: 20px;
 }
 
-.direct-contact-row {
+/* CONTACT & WEBSITE GROUP */
+.contact-info-group {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
   margin-bottom: 28px;
 }
 
-.phone-link {
+.contact-link {
   font-size: 15px;
   font-weight: 600;
   color: var(--text-dark);
@@ -239,15 +184,20 @@ body::before {
   transition: color 0.2s ease, transform 0.2s ease;
 }
 
-.phone-link:hover {
+.contact-link:hover {
   color: var(--teal-hover);
   transform: translateX(2px);
 }
 
-.phone-icon-inline {
+.contact-icon {
   width: 16px;
   height: 16px;
   color: var(--teal-primary);
+}
+
+.contact-separator {
+  color: #d1d5db;
+  user-select: none;
 }
 
 /* SOCIALS */
@@ -286,85 +236,6 @@ body::before {
 }
 
 /* ==========================================
-   CORPORATE BACK SIDE STYLING
-========================================== */
-.corporate-brand-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  height: 100%;
-}
-
-.corporate-logo-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-grow: 1;
-  width: 100%;
-}
-
-.corporate-logo {
-  height: auto;
-  width: 100%;
-  max-width: 320px;
-  object-fit: contain;
-  transition: transform 0.3s ease;
-}
-
-.corporate-logo:hover {
-  transform: scale(1.02);
-}
-
-.corporate-website-link {
-  font-family: var(--font-sans);
-  font-size: 15px;
-  font-weight: 600;
-  color: #72d12c; /* Lime green brand color matching the mockup */
-  text-decoration: none;
-  letter-spacing: 0.05em;
-  transition: color 0.2s ease, transform 0.2s ease;
-  margin-top: auto;
-  padding-bottom: 8px;
-}
-
-.corporate-website-link:hover {
-  color: #8dcd36;
-  transform: scale(1.02);
-}
-
-.flip-btn-back-corner {
-  position: absolute;
-  top: 24px;
-  right: 24px;
-  background-color: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.7);
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  z-index: 10;
-}
-
-.flip-btn-back-corner:hover {
-  background-color: var(--teal-hover);
-  color: #121212;
-  border-color: var(--teal-hover);
-  transform: rotate(180deg);
-}
-
-.flip-btn-back-corner svg {
-  width: 16px;
-  height: 16px;
-}
-
-/* ==========================================
    RESPONSIVENESS
 ========================================== */
 @media (max-width: 820px) {
@@ -372,28 +243,20 @@ body::before {
     padding: 16px;
   }
 
-  .card-perspective {
-    max-width: 480px;
-  }
-
-  .card-front {
+  .card {
     flex-direction: column;
     padding: 36px 24px;
     gap: 28px;
     text-align: center;
     align-items: center;
+    max-width: 480px;
   }
 
-  .card-back {
-    position: absolute;
-    height: 100%;
-    padding: 36px 24px;
-  }
-
-  .image-container {
+  .logo-container {
     width: 100%;
     max-width: 240px;
-    height: 240px;
+    height: 180px;
+    padding: 20px;
     border-radius: 24px;
   }
 
@@ -431,8 +294,16 @@ body::before {
     margin-bottom: 16px;
   }
 
-  .direct-contact-row {
+  .contact-info-group {
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+    width: 100%;
     margin-bottom: 20px;
+  }
+
+  .contact-separator {
+    display: none;
   }
 
   .social-row {
@@ -445,22 +316,5 @@ body::before {
   .social-btn {
     width: 40px;
     height: 40px;
-  }
-
-  /* Corporate Back Side mobile sizing */
-  .corporate-logo {
-    max-width: 240px;
-  }
-
-  .corporate-website-link {
-    font-size: 14px;
-    padding-bottom: 0;
-  }
-
-  .flip-btn-back-corner {
-    top: 16px;
-    right: 16px;
-    width: 36px;
-    height: 36px;
   }
 }
